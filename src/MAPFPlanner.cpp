@@ -6,9 +6,6 @@
 #include <algorithm>
 #include <iostream>
 #include <random>
-#include <sstream>
-#include <string>
-#include <utility>
 
 struct AstarNode {
   int location;
@@ -36,7 +33,7 @@ struct cmp {
 };
 
 void planner::MAPFPlanner::initialize(SharedEnvironment *initial_state,
-                                      double preprocess_time_limit) {
+                                      std::chrono::duration<double> preprocess_time_limit) {
   env = initial_state;
   heuristics.resize(grid_.map.size());
   assert(initial_state->num_of_agents_ != 0);
@@ -73,7 +70,7 @@ void planner::MAPFPlanner::initialize(SharedEnvironment *initial_state,
 
 vector<Action> planner::MAPFPlanner::query(const std::vector<State>& start_states,
                                            const std::vector<std::deque<tasks::Task>>& goal_locations,
-                                           double time_limit){
+                                           std::chrono::duration<double> time_limit){
                                             std::cout << "PROBLEMATIC" << std::flush;
                                             return vector<Action>(start_states.size(), Action::W);
                                            };
