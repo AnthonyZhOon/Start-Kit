@@ -63,6 +63,7 @@ bool validateStep(vector<State> &curr_states, vector<State> &next_states) {
 }
 
 vector<State> TurtlebotExecutor::get_agent_locations(int timestep) {
+  std::cout << "I am a turtle!" << std::endl;
   const string PATH = "/get_locations";
   using json = nlohmann::json;
 
@@ -143,6 +144,7 @@ void TurtlebotExecutor::send_plan(vector<State> &curr_states, vector<State> &nex
     return;
   }
 
+  std::cout << "I am a turtle!" << std::endl;
 
   const std::string PATH = "/extend_path";
   beast::tcp_stream stream(ioc_);

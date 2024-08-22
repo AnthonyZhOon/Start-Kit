@@ -76,13 +76,12 @@ void BaseSystem::move(vector<Action> &actions) {
   }
   std::cout << std::endl;
 
-  curr_states = next_states;
-  //if (simulate_each_step) {
-  //executor->send_plan(curr_states, next_states);
-  //curr_states = executor->get_agent_locations(timestep);
-  //} else {
-  //curr_states = next_states;
-  //}
+  if (simulate_each_step) {
+    executor->send_plan(curr_states, next_states);
+    curr_states = executor->get_agent_locations(timestep);
+  } else {
+    curr_states = next_states;
+  }
 }
 
 // This function might not work correctly with small map (w or h <=2)

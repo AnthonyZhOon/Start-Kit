@@ -84,7 +84,7 @@ protected:
 
   // For execution simulation
   bool simulate_complete = true;
-  bool simulate_each_step = false;
+  bool simulate_each_step = true;
   // for evaluation
   vector<int> solution_costs;
   int num_of_task_finish = 0;

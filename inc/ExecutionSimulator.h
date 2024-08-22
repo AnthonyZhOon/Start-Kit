@@ -41,8 +41,8 @@ public:
   // planner_grid(planner_grid), rows(planner_grid.rows),
   // cols(planner_grid.cols), real_grid(real_grid){}
   ActionExecutor(){};
-  void send_plan(vector<State> &curr, vector<State> &next);
-  vector<State> get_agent_locations(int timestep);
+  virtual void send_plan(vector<State> &curr, vector<State> &next) = 0;
+  virtual vector<State> get_agent_locations(int timestep) = 0;
   vector<bool> get_agent_success(int timestep);
   void set_logger(Logger *logger) { this->logger = logger; }
 
@@ -81,9 +81,9 @@ class PerfectExecutor : public ActionExecutor {
 public:
   PerfectExecutor() : ActionExecutor(){};
   // curr_states and next_States under predicted next step if perfectly executed
-  void send_plan(vector<State> &curr, vector<State> &next) { next_states = next; }
+  void send_plan(vector<State> &curr, vector<State> &next) override { next_states = next; }
 
-  vector<State> get_agent_locations(int timestep) {
+  vector<State> get_agent_locations(int timestep) override {
     return next_states;
   }
 
@@ -99,8 +99,8 @@ public:
       : rows_(rows), cols_(cols), 
         ActionExecutor(){};
   // Setup http connection as websocket?
-  vector<State> get_agent_locations(int timestep);
-  void send_plan(vector<State> &curr,vector<State> &next);
+  vector<State> get_agent_locations(int timestep) override;
+  void send_plan(vector<State> &curr,vector<State> &next) override;
 
   ~TurtlebotExecutor(){};
 
@@ -108,7 +108,7 @@ private:
   int rows_;
   int cols_;
 
-  const string hostname = "192.168.0.141";
+  const string hostname = "192.168.0.171";
   const string port =
       "8080"; // hsotname and port the central controller has a TCP listener on
   boost::asio::io_service ioc_;
