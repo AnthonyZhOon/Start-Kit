@@ -33,7 +33,7 @@ struct cmp {
 };
 
 void planner::MAPFPlanner::initialize(SharedEnvironment *initial_state,
-                                      std::chrono::duration<double> preprocess_time_limit) {
+                                      std::chrono::duration<double> const  preprocess_time_limit) {
   env = initial_state;
   heuristics.resize(grid_.map.size());
   assert(initial_state->num_of_agents_ != 0);

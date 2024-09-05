@@ -3,39 +3,37 @@
 
 #pragma once
 #include <chrono>
-
+// TODO Maybe we can just return a std::chrono::duration
 class Timer {
 public:
   Timer() : start_time_() {}
 
   void start() { start_time_ = std::chrono::high_resolution_clock::now(); }
 
-  double elapsed_time_nano() {
-    return elapsed_time<std::chrono::nanoseconds>();
+  template <class Units> inline 
+  Units elapsed_time() {
+    return elapsed_time_<Units>();
   }
-  double elapsed_time_micro() {
-    return elapsed_time<std::chrono::microseconds>();
-  }
-  double elapsed_time_sec() { return elapsed_time<std::chrono::seconds>(); }
 
-  double get_time_nano() { return get_time<std::chrono::nanoseconds>(); }
-  double get_time_micro() { return get_time<std::chrono::microseconds>(); }
-  double get_time_sec() { return get_time<std::chrono::seconds>(); }
+  template<class Unit> inline
+  Unit get_time_sec() {
+     return get_time<Unit>();
+  }
 
 private:
   std::chrono ::time_point<std::chrono::high_resolution_clock> start_time_;
 
-  template <class Units> inline double elapsed_time() {
+  template <class Units> inline 
+  Units elapsed_time_() {
     return std::chrono::duration_cast<Units>(
-               std::chrono::high_resolution_clock::now() - start_time_)
-        .count();
+               std::chrono::high_resolution_clock::now() - start_time_);
   }
 
-  template <class Units> inline double get_time() {
+  template <class Units> inline 
+  Units get_time() {
     return std::chrono::time_point_cast<Units>(
                std::chrono::high_resolution_clock::now())
-        .time_since_epoch()
-        .count();
+        .time_since_epoch();
   }
 };
 

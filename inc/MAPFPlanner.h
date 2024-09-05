@@ -36,10 +36,11 @@ public:
   bool traffic_control = false;
 
   virtual void initialize(SharedEnvironment *initial_state,
-                          std::chrono::duration<double> preprocess_time_limit);
+                          std::chrono::duration<double> const preprocess_time_limit);
 
   vector<Action> query(const std::vector<State>& start_states,
-                       const std::vector<std::deque<tasks::Task>>& goal_locations, std::chrono::duration<double> time_limit);
+                       const std::vector<std::deque<tasks::Task>>& goal_locations,
+                       std::chrono::duration<double> time_limit);
 
   // return next states for all agents
   virtual void plan(int time_limit, const vector<State>& curr_states, std::vector<Action> &plan);

@@ -33,7 +33,7 @@ public:
     //const SharedEnvironment *const immutable_state = state;
     //consider making state a shared_ptr
     std::cout << task_generator_->update_tasks(*state) << '\n';
-
+    planner_->planner_preprocess(state);
     while (!task_generator_->update_tasks(*state)) {
       std::cout << "HI T" << std::flush;
       task_assigner_->assign_tasks(state);

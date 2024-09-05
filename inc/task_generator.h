@@ -3,6 +3,7 @@
 
 #include "SharedEnv.h"
 #include "timer.h"
+#include <chrono>
 #include <cstddef>
 #include <fstream>
 
@@ -40,7 +41,7 @@ public:
       return false;
     }
     std::cout << "!" << '\n';
-    if (timer_.elapsed_time_sec() < reveal_interval_) {
+    if (timer_.elapsed_time<std::chrono::seconds>().count() < reveal_interval_) {
       return true;
     }
 
